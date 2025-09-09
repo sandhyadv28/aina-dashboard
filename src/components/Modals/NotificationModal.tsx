@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { X, Bell, CheckCircle, AlertTriangle, Clock, Users } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../SharedComponents/card";
 import { Badge } from "../SharedComponents/badge";
 import { Button } from "../SharedComponents/button";
 
@@ -134,18 +133,18 @@ export const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) =
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="glass-card w-full max-w-2xl max-h-[80vh] flex flex-col">
-        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-4 relative">
+      <div className="glass-card w-full max-w-2xl max-h-[80vh] flex flex-col rounded-lg border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-row items-start justify-between space-y-0 pb-4 relative p-6">
           <div className="flex-1">
-            <CardTitle className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <Bell className="w-5 h-5 text-primary" />
-              <span>Notifications</span>
+              <h3 className="text-2xl font-semibold leading-none tracking-tight">Notifications</h3>
               {unacknowledgedCount > 0 && (
                 <Badge className="btn-medical-critical">
                   {unacknowledgedCount} new
                 </Badge>
               )}
-            </CardTitle>
+            </div>
             <p className="text-sm text-muted-foreground mt-1">
               Recent alerts and system notifications
             </p>
@@ -153,9 +152,9 @@ export const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) =
           <Button variant="ghost" size="icon" onClick={onClose} className="absolute top-3 right-5">
             <X className="w-5 h-5" />
           </Button>
-        </CardHeader>
+        </div>
 
-        <CardContent className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-hidden p-6 pt-0">
           <div className="h-full overflow-y-auto custom-scrollbar">
             <div className="space-y-3">
               {notifications.map((notification) => (
@@ -205,8 +204,8 @@ export const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) =
               ))}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

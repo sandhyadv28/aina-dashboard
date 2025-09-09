@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
 import { ChevronDown, ChevronUp, Check } from "lucide-react"
-import { cn } from "../../lib/utils"
 
 type Option = {
   value: string
@@ -41,15 +40,12 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({
   }, [])
 
   return (
-    <div ref={dropdownRef} className={cn("relative w-48", className)}>
+    <div ref={dropdownRef} className={`relative w-48 ${className || ''}`}>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className={cn(
-          "flex h-10 items-center justify-between rounded-md border border-glass-border bg-glass-bg px-3 py-2 text-sm backdrop-blur-sm shadow-sm ring-offset-background cursor-pointer",
-          "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-        )}
+        className="flex h-10 items-center justify-between rounded-md border border-glass-border bg-glass-bg px-3 py-2 text-sm backdrop-blur-sm shadow-sm ring-offset-background cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
       >
-        <p className={cn("truncate", !selected && "text-muted-foreground")}>
+        <p className={`truncate ${!selected ? 'text-muted-foreground' : ''}`}>
           {selected ? selected.label : placeholder}
         </p>
         {open ? (
@@ -70,9 +66,7 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({
         onChange?.(item.value)
         setOpen(false)
       }}
-      className={cn(
-        "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm text-accent-foreground hover:bg-accent"
-      )}
+      className="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm text-accent-foreground hover:bg-accent"
     >
       {isSelected && (
         <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">

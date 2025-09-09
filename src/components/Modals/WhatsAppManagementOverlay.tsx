@@ -1,7 +1,6 @@
 import { ChevronDown, Clock, MessageSquare, Trash2, UserPlus, Users, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../SharedComponents/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../SharedComponents/card";
 import { Input } from "../SharedComponents/input";
 import { Label } from "../SharedComponents/label";
 
@@ -106,12 +105,12 @@ export const WhatsAppManagementOverlay = ({
 
             <div className="space-y-6">
               {/* Current Users */}
-              <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
+              <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex flex-col space-y-1.5 p-6">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Users className="w-6 h-6 text-primary" />
-                      <span>Notification Recipients</span>
+                      <h3 className="text-2xl font-semibold leading-none tracking-tight">Notification Recipients</h3>
                     </div>
                     <Button
                       variant="outline"
@@ -121,9 +120,9 @@ export const WhatsAppManagementOverlay = ({
                       <UserPlus className="w-5 h-5 mr-2" />
                       Add User
                     </Button>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
+                  </div>
+                </div>
+                <div className="p-6 pt-0 space-y-3">
                   {users.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       <Users className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -159,18 +158,18 @@ export const WhatsAppManagementOverlay = ({
                       </div>
                     ))
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
               {showAddUser && (
-                <Card className="glass-card border-primary/20">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2 text-primary">
+                <div className="glass-card border-primary/20 rounded-lg border bg-card text-card-foreground shadow-sm">
+                  <div className="flex flex-col space-y-1.5 p-6">
+                    <div className="flex items-center space-x-2 text-primary">
                       <UserPlus className="w-5 h-5" />
-                      <span>Add New User</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
+                      <h3 className="text-2xl font-semibold leading-none tracking-tight">Add New User</h3>
+                    </div>
+                  </div>
+                  <div className="p-6 pt-0 space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Full Name</Label>
@@ -266,8 +265,8 @@ export const WhatsAppManagementOverlay = ({
                         Add User
                       </Button>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )}
             </div>
           </div>

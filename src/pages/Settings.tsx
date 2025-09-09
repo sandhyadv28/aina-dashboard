@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../components/SharedComponents/card";
 import { Activity, ArrowLeft, Bell, MessageSquare, Settings as SettingsIcon, Shield } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -143,8 +142,6 @@ const Settings = () => {
     setWhatsAppUsers(prev => prev.filter(user => user.id !== id));
   };
 
-  const enabledCount = alertSettings.filter(setting => setting.enabled).length;
-  const totalCount = alertSettings.length;
 
   return (
     <div className="space-y-6 animate-fade-in-up">
@@ -162,15 +159,15 @@ const Settings = () => {
       </div>
 
       {/* Alert Thresholds */}
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+      <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <div className="flex items-center space-x-2">
             <Activity className="w-5 h-5 text-primary" />
-            <span>Alert Thresholds</span>
-          </CardTitle>
+            <h3 className="text-2xl font-semibold leading-none tracking-tight">Alert Thresholds</h3>
+          </div>
           <p className="text-sm text-muted-foreground">Configure sensitivity levels for different alert types</p>
-        </CardHeader>
-        <CardContent className="space-y-4">
+        </div>
+        <div className="p-6 pt-0 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Position Alert - Warning (minutes)</Label>
@@ -197,22 +194,22 @@ const Settings = () => {
               <Input type="number" defaultValue="90" className="clinical-input" />
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* AI Model Configuration */}
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+      <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <div className="flex items-center space-x-2">
             <Bell className="w-5 h-5 text-primary" />
-            <span>AI Model Configuration</span>
-          </CardTitle>
+            <h3 className="text-2xl font-semibold leading-none tracking-tight">AI Model Configuration</h3>
+          </div>
           <p className="text-sm text-muted-foreground">
             Enable or disable specific AI models and their corresponding alerts. 
             Changes take effect immediately across all monitoring views.
           </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
+        </div>
+        <div className="p-6 pt-0 space-y-4">
           {alertSettings.map((setting) => (
             <div 
               key={setting.id} 
@@ -245,19 +242,19 @@ const Settings = () => {
               />
             </div>
           ))}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
       
       {/* Notification Preferences */}
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+      <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <div className="flex items-center space-x-2">
             <MessageSquare className="w-5 h-5 text-primary" />
-            <span>Notification Preferences</span>
-          </CardTitle>
+            <h3 className="text-2xl font-semibold leading-none tracking-tight">Notification Preferences</h3>
+          </div>
           <p className="text-sm text-muted-foreground">Configure how and when you receive notifications</p>
-        </CardHeader>
-        <CardContent className="space-y-4">
+        </div>
+        <div className="p-6 pt-0 space-y-4">
           {/* WhatsApp Notifications */}
           <div className="p-4 bg-background/50 rounded-lg border border-border/50">
             <div className="flex items-center justify-between">
@@ -292,18 +289,18 @@ const Settings = () => {
               </div>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Display and Audio Preferences */}
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+      <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <div className="flex items-center space-x-2">
             <SettingsIcon className="w-5 h-5 text-primary" />
-            <span>Display and Audio Preferences</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+            <h3 className="text-2xl font-semibold leading-none tracking-tight">Display and Audio Preferences</h3>
+          </div>
+        </div>
+        <div className="p-6 pt-0 space-y-4">
           {/* Other Preferences */}
           <div className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50">
             <div>
@@ -328,8 +325,8 @@ const Settings = () => {
             </div>
             <Switch />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
 
       {/* Save Settings */}

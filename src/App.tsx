@@ -1,4 +1,3 @@
-import { Toaster } from "./components/SharedComponents/toaster";
 import { Toaster as Sonner } from "./components/SharedComponents/sonner";
 import { TooltipProvider } from "./components/SharedComponents/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,7 +12,6 @@ const App = () => (
   <ThemeProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
         <Sonner />
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
