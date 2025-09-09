@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { HelpCircle, MessageSquare } from "lucide-react";
 import { Button } from "./SharedComponents/button";
-// import { SupportOverlay } from "@/components/overlays/SupportOverlay";
-// import { ReportIssueOverlay } from "@/components/overlays/ReportIssueOverlay";
+import { useState } from "react";
+import { SupportModal } from "./modals/SupportModal";
+import { ReportIssueModal } from "./modals/ReportIssueModal";
 
 export const SupportIcons = () => {
   const [showSupport, setShowSupport] = useState(false);
@@ -19,7 +19,7 @@ export const SupportIcons = () => {
         >
           <HelpCircle className="w-5 h-5" />
         </Button>
-        
+
         <Button
           variant="ghost"
           size="icon"
@@ -30,15 +30,15 @@ export const SupportIcons = () => {
         </Button>
       </div>
 
-      {/* <SupportOverlay 
-        isOpen={showSupport} 
-        onClose={() => setShowSupport(false)} 
+      <SupportModal
+        isOpen={showSupport}
+        onClose={() => setShowSupport(false)}
       />
-      
-      <ReportIssueOverlay 
-        isOpen={showReport} 
-        onClose={() => setShowReport(false)} 
-      /> */}
+
+      <ReportIssueModal
+        isOpen={showReport}
+        onClose={() => setShowReport(false)}
+      />
     </>
   );
 };

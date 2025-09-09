@@ -13,7 +13,7 @@ interface WhatsAppUser {
   timeTo: string;
 }
 
-interface WhatsAppManagementOverlayProps {
+interface WhatsAppManagementModalProps {
   isOpen: boolean;
   onClose: () => void;
   users: WhatsAppUser[];
@@ -21,13 +21,13 @@ interface WhatsAppManagementOverlayProps {
   onRemoveUser: (id: string) => void;
 }
 
-export const WhatsAppManagementOverlay = ({
+export const WhatsAppManagementModal = ({
   isOpen,
   onClose,
   users,
   onAddUser,
   onRemoveUser
-}: WhatsAppManagementOverlayProps) => {
+}: WhatsAppManagementModalProps) => {
   const [showAddUser, setShowAddUser] = useState(false);
   const [newUserName, setNewUserName] = useState("");
   const [newUserPhone, setNewUserPhone] = useState("");

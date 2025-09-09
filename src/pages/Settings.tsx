@@ -5,7 +5,7 @@ import { Button } from "../components/SharedComponents/button";
 import { Label } from "../components/SharedComponents/label";
 import { Input } from "../components/SharedComponents/input";
 import { Switch } from "../components/SharedComponents/switch";
-import { WhatsAppManagementOverlay } from "../components/Modals/WhatsAppManagementOverlay";
+import { WhatsAppManagementModal } from "../components/modals/WhatsAppManagementModal";
 
 interface AlertSetting {
   id: string;
@@ -121,9 +121,9 @@ const Settings = () => {
   const [showWhatsAppManagement, setShowWhatsAppManagement] = useState(false);
 
   const toggleAlert = (id: string) => {
-    setAlertSettings(prev => 
-      prev.map(setting => 
-        setting.id === id 
+    setAlertSettings(prev =>
+      prev.map(setting =>
+        setting.id === id
           ? { ...setting, enabled: !setting.enabled }
           : setting
       )
@@ -205,14 +205,14 @@ const Settings = () => {
             <h3 className="text-2xl font-semibold leading-none tracking-tight">AI Model Configuration</h3>
           </div>
           <p className="text-sm text-muted-foreground">
-            Enable or disable specific AI models and their corresponding alerts. 
+            Enable or disable specific AI models and their corresponding alerts.
             Changes take effect immediately across all monitoring views.
           </p>
         </div>
         <div className="p-6 pt-0 space-y-4">
           {alertSettings.map((setting) => (
-            <div 
-              key={setting.id} 
+            <div
+              key={setting.id}
               className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50 hover:bg-background/70 transition-colors"
             >
               <div className="flex items-center space-x-4">
@@ -244,7 +244,7 @@ const Settings = () => {
           ))}
         </div>
       </div>
-      
+
       {/* Notification Preferences */}
       <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-col space-y-1.5 p-6">
@@ -309,7 +309,7 @@ const Settings = () => {
             </div>
             <Switch defaultChecked />
           </div>
-          
+
           <div className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50">
             <div>
               <Label className="font-medium">Sound Notifications</Label>
@@ -317,7 +317,7 @@ const Settings = () => {
             </div>
             <Switch defaultChecked />
           </div>
-          
+
           <div className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50">
             <div>
               <Label className="font-medium">High Contrast Mode</Label>
@@ -339,8 +339,7 @@ const Settings = () => {
         </Button>
       </div>
 
-      {/* WhatsApp Management Overlay */}
-      <WhatsAppManagementOverlay
+      <WhatsAppManagementModal
         isOpen={showWhatsAppManagement}
         onClose={() => setShowWhatsAppManagement(false)}
         users={whatsAppUsers}

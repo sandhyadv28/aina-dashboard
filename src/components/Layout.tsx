@@ -4,8 +4,8 @@ import SelectDropdown from "./SharedComponents/selectDropdown";
 import { Activity, LayoutDashboard, Users, Settings, Bell, LogOut } from "lucide-react";
 import { Button } from "./SharedComponents/button";
 import { ThemeToggle } from "./ThemeToggle";
-import { NotificationModal } from "./Modals/NotificationModal";
-// import { SupportIcons } from "@/components/SupportIcons";
+import { NotificationModal } from "./modals/NotificationModal";
+import { SupportIcons } from "./SupportIcons";
 
 const Layout = () => {
   const [selectedUnit, setSelectedUnit] = useState("icu-1");
@@ -106,7 +106,7 @@ const Layout = () => {
               </Link>
 
               <ThemeToggle />
-              {/* <SupportIcons /> */}
+              <SupportIcons />
 
               {/* Logout */}
               <Button
