@@ -48,7 +48,7 @@ const Dashboard = () => {
     const alertTrends = [
         { type: "Position Change", change: 12, trend: "up" as const, color: "text-medical-critical" },
         { type: "Patient Absent", change: 8, trend: "down" as const, color: "text-medical-stable" },
-        { type: "Fall Risk", change: 5, trend: "up" as const, color: "text-medical-critical" }
+        { type: "Fall Risk", change: 5, trend: "up" as const, color: "text-yellow-500" }
     ];
 
 
