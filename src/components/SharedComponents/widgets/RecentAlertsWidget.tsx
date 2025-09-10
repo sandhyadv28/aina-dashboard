@@ -21,7 +21,7 @@ export const RecentAlertsWidget = ({ data, onClick }: RecentAlertsWidgetProps) =
       <div className="flex flex-col space-y-1.5 p-6">
         <div className="flex items-center space-x-2">
           <AlertTriangle className="w-5 h-5 text-primary" />
-          <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Recent Active Alerts</h3>
+          <h3 className="text-2xl font-semibold leading-none tracking-tight text-foreground">Recent Active Alerts</h3>
         </div>
       </div>
       <div className="p-6 pt-0">
@@ -37,12 +37,10 @@ export const RecentAlertsWidget = ({ data, onClick }: RecentAlertsWidgetProps) =
                     {alert.bed}
                   </Badge>
                   <div>
-                    <p className="font-medium text-foreground text-sm">{alert.type}</p>
-                    <p className="text-xs text-muted-foreground">{alert.time}</p>
+                    <p className="font-medium text-foreground text-base">{alert.type}</p>
+                    <p className="text-sm text-muted-foreground">{alert.time}</p>
                   </div>
                 </div>
-                <Heart className={`w-5 h-5 ${alert.severity === "critical" ? "text-medical-critical animate-pulse" : "text-medical-caution"
-                  }`} />
               </div>
             </Link>
           ))}

@@ -18,21 +18,24 @@ export const FallRiskWidget = ({ totalRisk, data, onClick }: FallRiskWidgetProps
       className="glass-card cursor-pointer hover:scale-105 transition-transform rounded-lg border bg-card text-card-foreground shadow-sm" 
       onClick={onClick}
     >
-      <div className="flex flex-col space-y-1.5 p-6">
+      <div className="flex flex-col space-y-3 p-6">
         <div className="flex items-center space-x-2">
           <Activity className="w-5 h-5 text-primary" />
-          <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Fall Risk</h3>
+          <h3 className="text-2xl font-semibold leading-none tracking-tight text-foreground">Fall Risk</h3>
         </div>
-        <div className="text-4xl font-bold text-medical-critical">{totalRisk}</div>
+        <div className="text-2xl font-bold text-medical-critical text-center">{totalRisk}</div>
       </div>
       <div className="p-6 pt-0 space-y-3">
         {data.map((item, index) => (
           <div key={index} className="space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-foreground">{item.bed}</span>
-              <span className="text-xs font-bold text-muted-foreground">{item.alerts} alerts</span>
+              <span className="text-xs font-medium text-muted-foreground">{item.alerts} alerts</span>
             </div>
-            <Progress value={(item.alerts / 5) * 100} className="h-2" />
+            <Progress 
+              value={item.alerts} 
+              max={15} 
+            />
           </div>
         ))}
         <div className="text-xs text-muted-foreground cursor-pointer hover:underline">

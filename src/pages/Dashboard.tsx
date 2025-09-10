@@ -88,8 +88,8 @@ const Dashboard = () => {
                     <div className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-xs font-medium text-muted-foreground">Total Patients</p>
-                                <p className="text-4xl font-bold text-foreground">{unitStats.totalPatients}</p>
+                                <p className="text-sm font-medium text-muted-foreground">Total Patients</p>
+                                <p className="text-3xl font-bold text-foreground">{unitStats.totalPatients}</p>
                             </div>
                             <Users className="w-8 h-8 text-primary" />
                         </div>
@@ -100,8 +100,8 @@ const Dashboard = () => {
                     <div className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-xs font-medium text-muted-foreground">Critical Alerts</p>
-                                <p className="text-4xl font-bold text-medical-critical">{unitStats.criticalAlerts}</p>
+                                <p className="text-sm font-medium text-muted-foreground">Critical Alerts</p>
+                                <p className="text-3xl font-bold text-medical-critical">{unitStats.criticalAlerts}</p>
                             </div>
                             <AlertTriangle className="w-8 h-8 text-medical-critical animate-pulse" />
                         </div>
@@ -112,8 +112,8 @@ const Dashboard = () => {
                     <div className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-xs font-medium text-muted-foreground">Empty Beds</p>
-                                <p className="text-4xl font-bold text-foreground">{unitStats.emptyBeds}</p>
+                                <p className="text-sm font-medium text-muted-foreground">Empty Beds</p>
+                                <p className="text-3xl font-bold text-foreground">{unitStats.emptyBeds}</p>
                             </div>
                             <Bed className="w-8 h-8 text-primary" />
                         </div>
