@@ -29,9 +29,9 @@ export const AlertTrendsWidget = ({ data, onClick }: AlertTrendsWidgetProps) => 
           <div key={index} className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               {trend.trend === "up" ? (
-                <TrendingUp className={`w-5 h-5 ${trend.color}`} />
+                <TrendingUp className={`w-4 h-4 ${trend.color}`} />
               ) : (
-                <TrendingDown className={`w-5 h-5 ${trend.color}`} />
+                <TrendingDown className={`w-4 h-4 ${trend.color}`} />
               )}
               <span className="text-sm font-medium text-foreground">{trend.type}</span>
             </div>
