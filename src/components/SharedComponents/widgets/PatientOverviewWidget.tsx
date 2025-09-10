@@ -39,14 +39,14 @@ export const PatientOverviewWidget = ({ data, onClick }: PatientOverviewWidgetPr
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full bg-medical-caution"></div>
+              <div className="w-3 h-3 rounded-full bg-medical-caution"></div>
               <span className="text-sm font-medium text-foreground">Caution</span>
             </div>
             <span className="text-sm font-bold text-foreground">{data.caution}</span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full bg-medical-stable"></div>
+              <div className="w-3 h-3 rounded-full bg-medical-stable"></div>
               <span className="text-sm font-medium text-foreground">Stable</span>
             </div>
             <span className="text-sm font-bold text-foreground">{data.stable}</span>
