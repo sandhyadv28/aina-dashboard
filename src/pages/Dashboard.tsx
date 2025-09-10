@@ -1,16 +1,15 @@
-import { RefreshCw, Users, AlertTriangle, Bed, Heart } from "lucide-react";
+import { RefreshCw, Users, Bed, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { DateRangePicker } from "../components/modals/dateTimeRangeModal";
 import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
 import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertTrendsWidget";
 import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";
 import { FallRiskWidget } from "../components/SharedComponents/widgets/FallRiskWidget";
-import { Link } from "react-router-dom";
-import { Badge } from "../components/SharedComponents/badge";
+import { RecentAlertsWidget } from "../components/SharedComponents/widgets/RecentAlertsWidget";
 
 const Dashboard = () => {
     const [selectedTimeRange, setSelectedTimeRange] = useState<string>("Sep 08, 2025 13:41 - Sep 09, 2025 13:41");
-        const [showWidgetDetail, setShowWidgetDetail] = useState(false);
+    const [showWidgetDetail, setShowWidgetDetail] = useState(false);
     const [selectedWidget, setSelectedWidget] = useState<string>("");
 
     const handleWidgetClick = (widgetName: string) => {
@@ -31,11 +30,11 @@ const Dashboard = () => {
     };
 
     const recentAlerts = [
-        { id: 1, bed: "BED 03", type: "Position Alert", severity: "critical", time: "2 min ago" },
-        { id: 2, bed: "BED 12", type: "Fall Risk", severity: "critical", time: "8 min ago" },
-        { id: 3, bed: "BED 07", type: "Patient Absent", severity: "caution", time: "5 min ago" },
-        { id: 4, bed: "BED 18", type: "Delirium Change", severity: "caution", time: "12 min ago" },
-        { id: 5, bed: "BED 22", type: "Pain Detected", severity: "caution", time: "15 min ago" }
+        { id: 1, bed: "BED 03", type: "Position Alert", severity: "critical" as const, time: "2 min ago" },
+        { id: 2, bed: "BED 12", type: "Fall Risk", severity: "critical" as const, time: "8 min ago" },
+        { id: 3, bed: "BED 07", type: "Patient Absent", severity: "caution" as const, time: "5 min ago" },
+        { id: 4, bed: "BED 18", type: "Delirium Change", severity: "caution" as const, time: "12 min ago" },
+        { id: 5, bed: "BED 22", type: "Pain Detected", severity: "caution" as const, time: "15 min ago" }
     ];
 
 
@@ -123,59 +122,28 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-                <PatientOverviewWidget 
-                    data={patientOverview} 
-                    onClick={() => handleWidgetClick("Patient Overview")} 
+                <PatientOverviewWidget
+                    data={patientOverview}
+                    onClick={() => handleWidgetClick("Patient Overview")}
                 />
-                <AlertTrendsWidget 
-                    data={alertTrends} 
-                    onClick={() => handleWidgetClick("Alert Trends")} 
+                <AlertTrendsWidget
+                    data={alertTrends}
+                    onClick={() => handleWidgetClick("Alert Trends")}
                 />
-                <PositionAlertsWidget 
-                    data={positionAlerts} 
+                <PositionAlertsWidget
+                    data={positionAlerts}
                     summary="3 overdue, 4 total alerts"
-                    onClick={() => handleWidgetClick("Position Alerts")} 
+                    onClick={() => handleWidgetClick("Position Alerts")}
                 />
-                <FallRiskWidget 
+                <FallRiskWidget
                     totalRisk={15}
-                    data={fallRiskData} 
-                    onClick={() => handleWidgetClick("Fall Risk")} 
+                    data={fallRiskData}
+                    onClick={() => handleWidgetClick("Fall Risk")}
                 />
             </div>
 
 
-            <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
-                <div className="flex flex-col space-y-1.5 p-6">
-                    <div className="flex items-center space-x-2">
-                        <AlertTriangle className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Recent Active Alerts</h3>
-                    </div>
-                </div>
-                <div className="p-6 pt-0">
-                    <div className="space-y-4">
-                        {recentAlerts.map((alert) => (
-                            <Link key={alert.id} to={`/patient/${alert.bed.replace(' ', '-').toLowerCase()}`}>
-                                <div className="flex items-center justify-between p-4 rounded-lg bg-background/50 border border-border/50 cursor-pointer hover:bg-background/70 transition-all">
-                                    <div className="flex items-center space-x-4">
-                                        <Badge
-                                            variant={alert.severity === "critical" ? "destructive" : "secondary"}
-                                            className={alert.severity === "critical" ? "btn-medical-critical" : "btn-medical-caution"}
-                                        >
-                                            {alert.bed}
-                                        </Badge>
-                                        <div>
-                                            <p className="font-medium text-foreground text-sm">{alert.type}</p>
-                                            <p className="text-xs text-muted-foreground">{alert.time}</p>
-                                        </div>
-                                    </div>
-                                    <Heart className={`w-5 h-5 ${alert.severity === "critical" ? "text-medical-critical animate-pulse" : "text-medical-caution"
-                                        }`} />
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <RecentAlertsWidget data={recentAlerts} />
 
             {showWidgetDetail && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
