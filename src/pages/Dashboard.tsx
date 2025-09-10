@@ -1,23 +1,16 @@
-import {
-    Activity,
-    AlertTriangle,
-    Bed,
-    Clock,
-    Filter,
-    Heart,
-    RefreshCw,
-    TrendingDown,
-    TrendingUp,
-    Users
-} from "lucide-react";
+import { RefreshCw, Users, AlertTriangle, Bed, Heart } from "lucide-react";
 import { useState } from "react";
+import { DateRangePicker } from "../components/modals/dateTimeRangeModal";
+import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
+import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertTrendsWidget";
+import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";
+import { FallRiskWidget } from "../components/SharedComponents/widgets/FallRiskWidget";
 import { Link } from "react-router-dom";
 import { Badge } from "../components/SharedComponents/badge";
-import { Progress } from "../components/SharedComponents/progress";
 
 const Dashboard = () => {
-    const [selectedTimeRange, setSelectedTimeRange] = useState<"6h" | "12h" | "24h" | "7d">("24h");
-    const [showWidgetDetail, setShowWidgetDetail] = useState(false);
+    const [selectedTimeRange, setSelectedTimeRange] = useState<string>("Sep 08, 2025 13:41 - Sep 09, 2025 13:41");
+        const [showWidgetDetail, setShowWidgetDetail] = useState(false);
     const [selectedWidget, setSelectedWidget] = useState<string>("");
 
     const handleWidgetClick = (widgetName: string) => {
@@ -54,9 +47,9 @@ const Dashboard = () => {
     };
 
     const alertTrends = [
-        { type: "Position Change", change: 12, trend: "up", color: "text-medical-critical" },
-        { type: "Patient Absent", change: 8, trend: "down", color: "text-medical-stable" },
-        { type: "Fall Risk", change: 5, trend: "up", color: "text-medical-critical" }
+        { type: "Position Change", change: 12, trend: "up" as const, color: "text-medical-critical" },
+        { type: "Patient Absent", change: 8, trend: "down" as const, color: "text-medical-stable" },
+        { type: "Fall Risk", change: 5, trend: "up" as const, color: "text-medical-critical" }
     ];
 
 
@@ -77,12 +70,10 @@ const Dashboard = () => {
         <div className="space-y-6 animate-fade-in-up">
 
             <div className="flex items-center justify-between">
-                <div className="rounded-lg border bg-card text-card-foreground shadow-sm px-4 py-2">
-                    <div className="flex items-center space-x-2">
-                        <Filter className="w-4 h-4 text-foreground" />
-                        <span className="text-foreground font-medium text-sm">Sep 08, 2025 13:41 - Sep 09, 2025 13:41</span>
-                    </div>
-                </div>
+                <DateRangePicker
+                    value={selectedTimeRange}
+                    onChange={setSelectedTimeRange}
+                />
 
                 <div className="flex items-center space-x-2">
                     <span className="text-muted-foreground text-xs">Last updated: 09 Sept 2025 1:41:17 PM UTC</span>
@@ -132,127 +123,27 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-                {/* Patient Overview */}
-                <div className="glass-card cursor-pointer hover:scale-105 transition-transform rounded-lg border bg-card text-card-foreground shadow-sm" onClick={() => handleWidgetClick("Patient Overview")}>
-                    <div className="flex flex-col space-y-1.5 p-6">
-                        <div className="flex items-center space-x-2">
-                            <Users className="w-5 h-5 text-primary" />
-                            <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Patient Overview</h3>
-                        </div>
-                    </div>
-                    <div className="p-6 pt-0 space-y-4">
-                        <div className="flex justify-between items-center">
-                            <span className="text-xs font-medium text-muted-foreground">Total Patients</span>
-                            <span className="text-xl font-bold text-foreground">{patientOverview.totalPatients}</span>
-                        </div>
-                        <div className="space-y-3">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-3 h-3 rounded-full bg-medical-critical"></div>
-                                    <span className="text-xs font-medium text-foreground">Critical</span>
-                                </div>
-                                <span className="text-xs font-bold text-foreground">{patientOverview.critical}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-3 h-3 rounded-full bg-medical-caution"></div>
-                                    <span className="text-xs font-medium text-foreground">Caution</span>
-                                </div>
-                                <span className="text-xs font-bold text-foreground">{patientOverview.caution}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-3 h-3 rounded-full bg-medical-stable"></div>
-                                    <span className="text-xs font-medium text-foreground">Stable</span>
-                                </div>
-                                <span className="text-xs font-bold text-foreground">{patientOverview.stable}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Alert Trends */}
-                <div className="glass-card cursor-pointer hover:scale-105 transition-transform rounded-lg border bg-card text-card-foreground shadow-sm" onClick={() => handleWidgetClick("Alert Trends")}>
-                    <div className="flex flex-col space-y-1.5 p-6">
-                        <div className="flex items-center space-x-2">
-                            <AlertTriangle className="w-5 h-5 text-primary" />
-                            <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Alert Trends</h3>
-                        </div>
-                    </div>
-                    <div className="p-6 pt-0 space-y-4">
-                        {alertTrends.map((trend, index) => (
-                            <div key={index} className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    {trend.trend === "up" ? (
-                                        <TrendingUp className={`w-4 h-4 ${trend.color}`} />
-                                    ) : (
-                                        <TrendingDown className={`w-4 h-4 ${trend.color}`} />
-                                    )}
-                                    <span className="text-xs font-medium text-foreground">{trend.type}</span>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                    <span className={`text-xs font-bold ${trend.color}`}>
-                                        {trend.trend === "up" ? "+" : "-"}{trend.change}%
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Position Alerts */}
-                <div className="glass-card cursor-pointer hover:scale-105 transition-transform rounded-lg border bg-card text-card-foreground shadow-sm" onClick={() => handleWidgetClick("Position Alerts")}>
-                    <div className="flex flex-col space-y-1.5 p-6">
-                        <div className="flex items-center space-x-2">
-                            <Clock className="w-5 h-5 text-primary" />
-                            <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Position Alerts</h3>
-                        </div>
-                        <p className="text-xs text-muted-foreground">3 overdue, 4 total alerts</p>
-                    </div>
-                    <div className="p-6 pt-0 space-y-3">
-                        {positionAlerts.map((alert, index) => (
-                            <div key={index} className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-2 h-2 rounded-full bg-medical-critical"></div>
-                                    <span className="text-xs font-medium text-foreground">{alert.bed}</span>
-                                </div>
-                                <span className="text-xs text-muted-foreground">{alert.duration}</span>
-                            </div>
-                        ))}
-                        <div className="text-xs text-muted-foreground cursor-pointer hover:underline">
-                            +1 more
-                        </div>
-                    </div>
-                </div>
-
-                {/* Fall Risk */}
-                <div className="glass-card cursor-pointer hover:scale-105 transition-transform rounded-lg border bg-card text-card-foreground shadow-sm" onClick={() => handleWidgetClick("Fall Risk")}>
-                    <div className="flex flex-col space-y-1.5 p-6">
-                        <div className="flex items-center space-x-2">
-                            <Activity className="w-5 h-5 text-primary" />
-                            <h3 className="text-xl font-semibold leading-none tracking-tight text-foreground">Fall Risk</h3>
-                        </div>
-                        <div className="text-4xl font-bold text-medical-critical">15</div>
-                    </div>
-                    <div className="p-6 pt-0 space-y-3">
-                        {fallRiskData.map((item, index) => (
-                            <div key={index} className="space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-medium text-foreground">{item.bed}</span>
-                                    <span className="text-xs font-bold text-muted-foreground">{item.alerts} alerts</span>
-                                </div>
-                                <Progress value={(item.alerts / 5) * 100} className="h-2" />
-                            </div>
-                        ))}
-                        <div className="text-xs text-muted-foreground cursor-pointer hover:underline">
-                            +1 more
-                        </div>
-                    </div>
-                </div>
+                <PatientOverviewWidget 
+                    data={patientOverview} 
+                    onClick={() => handleWidgetClick("Patient Overview")} 
+                />
+                <AlertTrendsWidget 
+                    data={alertTrends} 
+                    onClick={() => handleWidgetClick("Alert Trends")} 
+                />
+                <PositionAlertsWidget 
+                    data={positionAlerts} 
+                    summary="3 overdue, 4 total alerts"
+                    onClick={() => handleWidgetClick("Position Alerts")} 
+                />
+                <FallRiskWidget 
+                    totalRisk={15}
+                    data={fallRiskData} 
+                    onClick={() => handleWidgetClick("Fall Risk")} 
+                />
             </div>
 
 
-            {/* Recent Alerts */}
             <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
                 <div className="flex flex-col space-y-1.5 p-6">
                     <div className="flex items-center space-x-2">
@@ -286,7 +177,6 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Widget Detail Modal - placeholder for future implementation */}
             {showWidgetDetail && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowWidgetDetail(false)} />
