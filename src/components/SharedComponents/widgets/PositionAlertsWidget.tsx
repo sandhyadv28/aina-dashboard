@@ -22,19 +22,19 @@ export const PositionAlertsWidget = ({ data, summary, onClick }: PositionAlertsW
           <Clock className="w-5 h-5 text-primary" />
           <h3 className="text-2xl font-semibold leading-none tracking-tight text-foreground">Position Alerts</h3>
         </div>
-        <p className="text-sm text-muted-foreground">{summary}</p>
       </div>
-      <div className="p-6 pt-0 space-y-3">
+        <p className="text-xs px-6 text-muted-foreground">{summary}</p>
+      <div className="p-6 pt-3 space-y-3">
         {data.map((alert, index) => (
           <div key={index} className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 rounded-full bg-medical-critical"></div>
-              <span className="text-sm font-medium text-foreground">{alert.bed}</span>
+              <span className="text-sm font-medium text-muted-foreground">{alert.bed}</span>
+              <div className="w-2 h-2 rounded-full bg-medical-critical"></div>
             </div>
-            <span className="text-sm text-muted-foreground">{alert.duration}</span>
+            <span className="text-xs font-medium text-muted-foreground">{alert.duration}</span>
           </div>
         ))}
-        <div className="text-sm text-muted-foreground cursor-pointer hover:underline">
+        <div className="text-xs text-muted-foreground cursor-pointer hover:underline text-center">
           +1 more
         </div>
       </div>

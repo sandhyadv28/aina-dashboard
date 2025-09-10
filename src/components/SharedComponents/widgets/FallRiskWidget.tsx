@@ -38,7 +38,7 @@ export const FallRiskWidget = ({ totalRisk, data, onClick }: FallRiskWidgetProps
             />
           </div>
         ))}
-        <div className="text-xs text-muted-foreground cursor-pointer hover:underline">
+        <div className="text-xs text-muted-foreground cursor-pointer hover:underline text-center">
           +1 more
         </div>
       </div>
