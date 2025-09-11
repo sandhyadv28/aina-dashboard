@@ -1,6 +1,6 @@
 import { RefreshCw, Users, Bed, AlertTriangle } from "lucide-react";
 import { useState } from "react";
-import { DateRangePicker } from "../components/modals/dateTimeRangeModal";
+import { DateRangePicker } from "../components/modals/DateTimeRangeModal";
 import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
 import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertTrendsWidget";
 import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";

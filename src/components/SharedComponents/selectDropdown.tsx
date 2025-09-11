@@ -56,7 +56,7 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({
       </div>
 
       {open && (
-        <div className="absolute z-50 mt-1 w-full overflow-auto rounded-md border border-input bg-background text-foreground shadow-lg">
+        <div className="absolute z-50 mt-1 w-full overflow-auto custom-scrollbar rounded-md border border-input bg-background text-foreground shadow-lg">
           {values.map((item) => {
             const isSelected = value === item.value
             return (
