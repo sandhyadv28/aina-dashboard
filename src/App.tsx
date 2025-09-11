@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
+import Patients from "./pages/Patients";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,7 @@ const App = () => (
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="patients" element={<div className="p-6">Patients Content</div>} />
+            <Route path="patients" element={<Patients />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
