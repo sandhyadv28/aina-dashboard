@@ -1,6 +1,7 @@
 import { RefreshCw, Users, Bed, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { DateRangePicker } from "../components/modals/DateTimeRangeModal";
+import { PositionAlertsDetailModal } from "../components/modals/PositionAlertsDetailModal";
 import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
 import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertTrendsWidget";
 import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";
@@ -11,6 +12,7 @@ const Dashboard = () => {
     const [selectedTimeRange, setSelectedTimeRange] = useState<string>("Sep 08, 2025 13:41 - Sep 09, 2025 13:41");
     const [showWidgetDetail, setShowWidgetDetail] = useState(false);
     const [selectedWidget, setSelectedWidget] = useState<string>("");
+    const [showPositionAlertsModal, setShowPositionAlertsModal] = useState(false);
 
     const handleWidgetClick = (widgetName: string) => {
         setSelectedWidget(widgetName);
@@ -56,6 +58,44 @@ const Dashboard = () => {
         { bed: "BED 03", duration: "6h 45m", overdue: true },
         { bed: "BED 07", duration: "6h 0m", overdue: true },
         { bed: "BED 12", duration: "4h 30m", overdue: true }
+    ];
+
+    const positionAlertsDetail = [
+        {
+            bed: "BED 03",
+            position: "Supine",
+            isOverdue: true,
+            durationInPosition: "6h 45m",
+            lastPositionChange: "02 Sept, 08:30",
+            dueChange: "02 Sept, 10:30",
+            overdueBy: "4h 45m"
+        },
+        {
+            bed: "BED 07",
+            position: "Left Lateral",
+            isOverdue: true,
+            durationInPosition: "6h 0m",
+            lastPositionChange: "02 Sept, 09:15",
+            dueChange: "02 Sept, 11:15",
+            overdueBy: "4h 0m"
+        },
+        {
+            bed: "BED 12",
+            position: "Right Lateral",
+            isOverdue: true,
+            durationInPosition: "4h 30m",
+            lastPositionChange: "02 Sept, 10:45",
+            dueChange: "02 Sept, 12:45",
+            overdueBy: "2h 30m"
+        },
+        {
+            bed: "BED 15",
+            position: "Supine",
+            isOverdue: false,
+            durationInPosition: "2h 0m",
+            lastPositionChange: "02 Sept, 13:15",
+            dueChange: "02 Sept, 15:15"
+        }
     ];
 
     const fallRiskData = [
@@ -133,7 +173,7 @@ const Dashboard = () => {
                 <PositionAlertsWidget
                     data={positionAlerts}
                     summary="3 overdue, 4 total alerts"
-                    onClick={() => handleWidgetClick("Position Alerts")}
+                    onClick={() => setShowPositionAlertsModal(true)}
                 />
                 <FallRiskWidget
                     totalRisk={15}
@@ -142,8 +182,13 @@ const Dashboard = () => {
                 />
             </div>
 
-
             <RecentAlertsWidget data={recentAlerts} />
+
+            <PositionAlertsDetailModal
+                isOpen={showPositionAlertsModal}
+                onClose={() => setShowPositionAlertsModal(false)}
+                data={positionAlertsDetail}
+            />
 
             {showWidgetDetail && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

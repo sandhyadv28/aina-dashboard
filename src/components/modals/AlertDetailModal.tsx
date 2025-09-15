@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { 
-  Play, 
-  Pause, 
-  Volume2, 
-  Camera, 
-  Calendar, 
-  Clock, 
-  MapPin, 
+import {
+  Play,
+  Pause,
+  Volume2,
+  Camera,
+  Calendar,
+  Clock,
+  MapPin,
   Zap,
   AlertTriangle,
   CheckCircle,
@@ -64,7 +64,7 @@ export const AlertDetailModal = ({ isOpen, onClose, alert }: AlertDetailModalPro
             <div className="flex items-center space-x-2">
               <AlertTriangle className={`w-5 h-5 ${getSeverityColor(alert.severity)}`} />
               <h2 className="text-xl font-semibold">{alert.title}</h2>
-              <Badge 
+              <Badge
                 variant={alert.severity === "critical" ? "destructive" : "secondary"}
                 className={alert.severity === "critical" ? "btn-medical-critical" : "btn-medical-caution"}
               >
@@ -96,69 +96,69 @@ export const AlertDetailModal = ({ isOpen, onClose, alert }: AlertDetailModalPro
                 </div>
                 {showVideoEvidence && (
                   <div className="p-6">
-                  <div className="relative">
-                    <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center relative overflow-hidden">
-                      <Camera className="w-16 h-16 text-muted-foreground" />
-                      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent" />
-                      
-                      {/* Video Controls */}
-                      <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-sm rounded-lg p-3">
-                        <div className="flex items-center space-x-4">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setIsPlaying(!isPlaying)}
-                            className="text-white hover:bg-white/20"
-                          >
-                            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                          </Button>
-                          
-                          <div className="flex-1 bg-white/20 rounded-full h-1">
-                            <div className="w-1/4 bg-white rounded-full h-1" />
-                          </div>
-                          
-                          <div className="flex items-center space-x-2">
-                            <Volume2 className="w-4 h-4 text-white" />
-                            <div className="w-20">
-                              <Slider
-                                value={volume}
-                                onValueChange={setVolume}
-                                max={100}
-                                step={1}
-                                className="slider-white"
-                              />
+                    <div className="relative">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center relative overflow-hidden">
+                        <Camera className="w-16 h-16 text-muted-foreground" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent" />
+
+                        {/* Video Controls */}
+                        <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-sm rounded-lg p-3">
+                          <div className="flex items-center space-x-4">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => setIsPlaying(!isPlaying)}
+                              className="text-white hover:bg-white/20"
+                            >
+                              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                            </Button>
+
+                            <div className="flex-1 bg-white/20 rounded-full h-1">
+                              <div className="w-1/4 bg-white rounded-full h-1" />
                             </div>
+
+                            <div className="flex items-center space-x-2">
+                              <Volume2 className="w-4 h-4 text-white" />
+                              <div className="w-20">
+                                <Slider
+                                  value={volume}
+                                  onValueChange={setVolume}
+                                  max={100}
+                                  step={1}
+                                  className="slider-white"
+                                />
+                              </div>
+                            </div>
+
+                            <span className="text-white text-sm">0:45 / 3:20</span>
                           </div>
-                          
-                          <span className="text-white text-sm">0:45 / 3:20</span>
+                        </div>
+
+                        {/* Alert Badge */}
+                        <div className="absolute top-4 left-4 bg-medical-critical/90 text-white px-3 py-1 rounded-full">
+                          <span className="text-sm font-medium">ALERT TRIGGERED</span>
                         </div>
                       </div>
-                      
-                      {/* Alert Badge */}
-                      <div className="absolute top-4 left-4 bg-medical-critical/90 text-white px-3 py-1 rounded-full">
-                        <span className="text-sm font-medium">ALERT TRIGGERED</span>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span>{alert.timestamp}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Clock className="w-4 h-4 text-muted-foreground" />
+                        <span>Duration: {alert.duration || "3:20"}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                        <span>Camera: Bedside View</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Zap className="w-4 h-4 text-muted-foreground" />
+                        <span>AI Confidence: 97%</span>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <Calendar className="w-4 h-4 text-muted-foreground" />
-                      <span>{alert.timestamp}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Clock className="w-4 h-4 text-muted-foreground" />
-                      <span>Duration: {alert.duration || "3:20"}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <MapPin className="w-4 h-4 text-muted-foreground" />
-                      <span>Camera: Bedside View</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Zap className="w-4 h-4 text-muted-foreground" />
-                      <span>AI Confidence: 97%</span>
-                    </div>
-                  </div>
                   </div>
                 )}
               </div>
@@ -169,21 +169,21 @@ export const AlertDetailModal = ({ isOpen, onClose, alert }: AlertDetailModalPro
                   <h3 className="text-lg font-semibold">Alert Details</h3>
                 </div>
                 <div className="p-6">
-                <p className="text-muted-foreground">{alert.description}</p>
-                <div className="mt-4 grid grid-cols-3 gap-4">
-                  <div className="text-center p-3 bg-background/50 rounded-lg">
-                    <div className="text-2xl font-bold text-medical-critical">1</div>
-                    <div className="text-sm text-muted-foreground">Active Alerts</div>
+                  <p className="text-muted-foreground">{alert.description}</p>
+                  <div className="mt-4 grid grid-cols-3 gap-4">
+                    <div className="text-center p-3 bg-background/50 rounded-lg">
+                      <div className="text-2xl font-bold text-medical-critical">1</div>
+                      <div className="text-sm text-muted-foreground">Active Alerts</div>
+                    </div>
+                    <div className="text-center p-3 bg-background/50 rounded-lg">
+                      <div className="text-2xl font-bold text-primary">4</div>
+                      <div className="text-sm text-muted-foreground">Notifications Sent</div>
+                    </div>
+                    <div className="text-center p-3 bg-background/50 rounded-lg">
+                      <div className="text-2xl font-bold text-medical-stable">2</div>
+                      <div className="text-sm text-muted-foreground">Acknowledged</div>
+                    </div>
                   </div>
-                  <div className="text-center p-3 bg-background/50 rounded-lg">
-                    <div className="text-2xl font-bold text-primary">4</div>
-                    <div className="text-sm text-muted-foreground">Notifications Sent</div>
-                  </div>
-                  <div className="text-center p-3 bg-background/50 rounded-lg">
-                    <div className="text-2xl font-bold text-medical-stable">2</div>
-                    <div className="text-sm text-muted-foreground">Acknowledged</div>
-                  </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -198,34 +198,33 @@ export const AlertDetailModal = ({ isOpen, onClose, alert }: AlertDetailModalPro
                   </div>
                 </div>
                 <div className="p-6 space-y-3">
-                {notifiedUsers.map((user, index) => (
-                  <div key={index} className="p-3 bg-background/50 rounded-lg border border-border/50">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-3">
-                        <User className="w-4 h-4 mt-1 text-muted-foreground" />
-                        <div>
-                          <div className="font-medium text-sm">{user.name}</div>
-                          <div className="text-xs text-muted-foreground">{user.role}</div>
-                          <div className="text-xs text-muted-foreground mt-1">
-                            Notified {user.time}
+                  {notifiedUsers.map((user, index) => (
+                    <div key={index} className="p-3 bg-background/50 rounded-lg border border-border/50">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start space-x-3">
+                          <User className="w-4 h-4 mt-1 text-muted-foreground" />
+                          <div>
+                            <div className="font-medium text-sm">{user.name}</div>
+                            <div className="text-xs text-muted-foreground">{user.role}</div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              Notified {user.time}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        {user.acknowledged ? (
-                          <CheckCircle className="w-4 h-4 text-medical-stable" />
-                        ) : (
-                          <Clock className="w-4 h-4 text-medical-caution" />
-                        )}
-                        <span className={`text-xs ${
-                          user.acknowledged ? "text-medical-stable" : "text-medical-caution"
-                        }`}>
-                          {user.acknowledged ? "Ack" : "Pending"}
-                        </span>
+                        <div className="flex items-center space-x-1">
+                          {user.acknowledged ? (
+                            <CheckCircle className="w-4 h-4 text-medical-stable" />
+                          ) : (
+                            <Clock className="w-4 h-4 text-medical-caution" />
+                          )}
+                          <span className={`text-xs ${user.acknowledged ? "text-medical-stable" : "text-medical-caution"
+                            }`}>
+                            {user.acknowledged ? "Ack" : "Pending"}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
                 </div>
               </div>
             </div>
