@@ -2,6 +2,7 @@ import { RefreshCw, Users, Bed, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { DateRangePicker } from "../components/modals/DateTimeRangeModal";
 import { PositionAlertsDetailModal } from "../components/modals/PositionAlertsDetailModal";
+import { FallRiskAlertsDetailModal } from "../components/modals/FallRiskAlertsDetailModal";
 import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
 import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertTrendsWidget";
 import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";
@@ -13,6 +14,7 @@ const Dashboard = () => {
     const [showWidgetDetail, setShowWidgetDetail] = useState(false);
     const [selectedWidget, setSelectedWidget] = useState<string>("");
     const [showPositionAlertsModal, setShowPositionAlertsModal] = useState(false);
+    const [showFallRiskAlertsModal, setShowFallRiskAlertsModal] = useState(false);
 
     const handleWidgetClick = (widgetName: string) => {
         setSelectedWidget(widgetName);
@@ -104,6 +106,41 @@ const Dashboard = () => {
         { bed: "BED 07", alerts: 3 }
     ];
 
+    const fallRiskAlertsDetail = [
+        {
+            bed: "BED 12",
+            totalAlerts: 5,
+            alerts: [
+                { type: "Both Rails Down", count: 3 },
+                { type: "Both Legs Out", count: 2 }
+            ]
+        },
+        {
+            bed: "BED 03",
+            totalAlerts: 4,
+            alerts: [
+                { type: "Both Rails Down", count: 2 },
+                { type: "Single Leg Out", count: 2 }
+            ]
+        },
+        {
+            bed: "BED 07",
+            totalAlerts: 3,
+            alerts: [
+                { type: "Single Rail Down", count: 1 },
+                { type: "Both Hands Out", count: 2 }
+            ]
+        },
+        {
+            bed: "BED 15",
+            totalAlerts: 3,
+            alerts: [
+                { type: "Single Rail Down", count: 2 },
+                { type: "Single Leg Out", count: 1 }
+            ]
+        }
+    ];
+
     return (
 
         <div className="space-y-6 animate-fade-in-up">
@@ -178,7 +215,7 @@ const Dashboard = () => {
                 <FallRiskWidget
                     totalRisk={15}
                     data={fallRiskData}
-                    onClick={() => handleWidgetClick("Fall Risk")}
+                    onClick={() => setShowFallRiskAlertsModal(true)}
                 />
             </div>
 
@@ -188,6 +225,12 @@ const Dashboard = () => {
                 isOpen={showPositionAlertsModal}
                 onClose={() => setShowPositionAlertsModal(false)}
                 data={positionAlertsDetail}
+            />
+
+            <FallRiskAlertsDetailModal
+                isOpen={showFallRiskAlertsModal}
+                onClose={() => setShowFallRiskAlertsModal(false)}
+                data={fallRiskAlertsDetail}
             />
 
             {showWidgetDetail && (

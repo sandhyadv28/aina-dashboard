@@ -59,7 +59,7 @@ export const PositionAlertsDetailModal = ({ isOpen, onClose, data }: PositionAle
                       )}
                     </div>
                     <div className="text-right">
-                      <div className="text-gray-400">Duration in Position</div>
+                      <div className="text-gray-400 text-sm">Duration in Position</div>
                       <div className="flex items-center space-x-1 text-white">
                         <Clock className="w-4 h-4 text-gray-400" />
                         <span className="font-medium text-sm">{bed.durationInPosition}</span>
