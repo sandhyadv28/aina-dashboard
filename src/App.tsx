@@ -1,11 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
-import Patients from "./pages/Patients";
-import PatientDetail from "./pages/PatientDetail";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -18,8 +16,7 @@ const App = () => (
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="patients" element={<Patients />} />
-            <Route path="patient/:bedNumber" element={<PatientDetail />} />
+            <Route path="patients" element={<p>Patient Content</p>} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
