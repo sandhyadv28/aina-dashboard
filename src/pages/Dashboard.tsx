@@ -5,6 +5,7 @@ import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertT
 import { FallRiskWidget } from "../components/SharedComponents/widgets/FallRiskWidget";
 import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
 import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";
+import { RecentAlertsWidget } from "../components/SharedComponents/widgets/RecentAlertsWidget";
 
 const Dashboard = () => {
     const [selectedTimeRange, setSelectedTimeRange] = useState<string>("Sep 08, 2025 13:41 - Sep 09, 2025 13:41");
@@ -215,6 +216,8 @@ const Dashboard = () => {
                     onClick={() => setShowFallRiskAlertsModal(true)}
                 />
             </div>
+
+            <RecentAlertsWidget data={recentAlerts} />
         </div>
     );
 };
