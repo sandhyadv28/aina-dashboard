@@ -3,6 +3,7 @@ import { useState } from "react";
 import { DateRangePicker } from "../components/modals/DateTimeRangeModal";
 import { PositionAlertsDetailModal } from "../components/modals/PositionAlertsDetailModal";
 import { FallRiskAlertsDetailModal } from "../components/modals/FallRiskAlertsDetailModal";
+import { EmptyBedsModal } from "../components/modals/EmptyBedsModal";
 import { PatientOverviewWidget } from "../components/SharedComponents/widgets/PatientOverviewWidget";
 import { AlertTrendsWidget } from "../components/SharedComponents/widgets/AlertTrendsWidget";
 import { PositionAlertsWidget } from "../components/SharedComponents/widgets/PositionAlertsWidget";
@@ -15,6 +16,7 @@ const Dashboard = () => {
     const [selectedWidget, setSelectedWidget] = useState<string>("");
     const [showPositionAlertsModal, setShowPositionAlertsModal] = useState(false);
     const [showFallRiskAlertsModal, setShowFallRiskAlertsModal] = useState(false);
+    const [showEmptyBedsModal, setShowEmptyBedsModal] = useState(false);
 
     const handleWidgetClick = (widgetName: string) => {
         setSelectedWidget(widgetName);
@@ -141,6 +143,24 @@ const Dashboard = () => {
         }
     ];
 
+    const emptyBedsData = [
+        {
+            bedNumber: "Bed 13",
+            lastOccupied: "Dec 8, 2024 09:45",
+            emptyDuration: "3w 1d"
+        },
+        {
+            bedNumber: "Bed 14",
+            lastOccupied: "Dec 27, 2024 14:30",
+            emptyDuration: "4d 13h"
+        },
+        {
+            bedNumber: "Bed 15",
+            lastOccupied: "Dec 31, 2024 08:15",
+            emptyDuration: "15h 21m"
+        }
+    ];
+
     return (
 
         <div className="space-y-6 animate-fade-in-up">
@@ -185,11 +205,15 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div
+                    className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm cursor-pointer hover:scale-105 transition-transform w-full text-left"
+                    onClick={() => setShowEmptyBedsModal(true)}
+                    aria-label="View empty beds details"
+                >
                     <div className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-muted-foreground">Empty Beds</p>
+                                <p className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Empty Beds</p>
                                 <p className="text-3xl font-bold text-foreground">{unitStats.emptyBeds}</p>
                             </div>
                             <Bed className="w-8 h-8 text-primary" />
@@ -233,9 +257,18 @@ const Dashboard = () => {
                 data={fallRiskAlertsDetail}
             />
 
+            <EmptyBedsModal
+                isOpen={showEmptyBedsModal}
+                onClose={() => setShowEmptyBedsModal(false)}
+                data={emptyBedsData}
+            />
+
             {showWidgetDetail && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowWidgetDetail(false)} />
+                    <div
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+                        onClick={() => setShowWidgetDetail(false)}
+                    />
                     <div className="relative z-50 w-full max-w-2xl max-h-[80vh] overflow-y-auto custom-scrollbar">
                         <div className="glass-card rounded-lg border bg-card text-card-foreground shadow-sm">
                             <div className="flex flex-col space-y-1.5 p-6">
