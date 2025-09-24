@@ -54,15 +54,15 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
   return (
     <div className="fixed inset-0 z-50 grid place-items-center p-4">
       <button
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/80"
         onClick={onClose}
       />
-      <div className="relative z-50 w-full max-w-7xl bg-background max-h-[85vh] overflow-y-auto custom-scrollbar rounded-lg">
-        <div className="p-6">
+      <div className="fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg sm:rounded-lg max-w-7xl glass-card max-h-[85vh] overflow-y-auto">
+        <div className="flex flex-col space-y-1.5 text-center sm:text-left">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <TrendingUp className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-semibold">Detailed Vitals Monitoring</h2>
+              <h2 className="text-lg font-semibold">Detailed Vitals Monitoring</h2>
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-sm text-muted-foreground">
@@ -82,7 +82,7 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
               </button>
             </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex justify-start">
             <DateRangePicker
               value={selectedDateRange}
               onChange={setSelectedDateRange}
@@ -90,7 +90,7 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="space-y-6">
           {/* Current Readings */}
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm glass-card">
             <div className="flex flex-col space-y-1.5 p-6">
@@ -131,7 +131,7 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
           </div>
 
           {/* Trend Graphs */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="rounded-lg border bg-card text-card-foreground shadow-sm glass-card">
               <div className="flex flex-col space-y-1.5 p-6">
                 <h3 className="text-2xl font-semibold leading-none tracking-tight">Heart Rate Trend</h3>
