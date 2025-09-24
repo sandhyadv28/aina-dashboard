@@ -30,12 +30,12 @@ const getShortMonthName = (month: number) => {
 };
 
 // Calendar Component
-const CalendarComponent = ({ 
-  isFrom, 
-  currentMonth, 
-  currentYear, 
-  onDateSelect, 
-  onNavigateMonth 
+const CalendarComponent = ({
+  isFrom,
+  currentMonth,
+  currentYear,
+  onDateSelect,
+  onNavigateMonth
 }: {
   isFrom: boolean;
   currentMonth: number;
@@ -61,8 +61,8 @@ const CalendarComponent = ({
         key={day}
         onClick={() => onDateSelect(day, isFrom)}
         className={`h-8 w-8 rounded-full text-sm transition-colors ${isSelected
-            ? "bg-primary text-primary-foreground"
-            : "text-foreground hover:bg-accent hover:text-accent-foreground"
+          ? "bg-primary text-primary-foreground"
+          : "text-foreground hover:bg-accent hover:text-accent-foreground"
           }`}
       >
         {day}
@@ -157,7 +157,7 @@ export const DateRangePicker = ({ value, onChange, className = "" }: DateRangePi
   const handleDateSelect = (day: number, isFrom: boolean) => {
     const monthName = getShortMonthName(currentMonth);
     const formattedDate = `${monthName} ${day.toString().padStart(2, '0')}`;
-    
+
     if (isFrom) {
       setCustomFromDate(formattedDate);
       setShowFromDatePicker(false);
@@ -205,13 +205,11 @@ export const DateRangePicker = ({ value, onChange, className = "" }: DateRangePi
         className="rounded-lg border bg-card text-card-foreground shadow-sm px-4 py-2 cursor-pointer hover:bg-accent/50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex items-center space-x-2">
-          <Calendar className="w-4 h-4 text-foreground" />
-          <span className="text-foreground font-medium text-sm">
-            {formatDisplayValue()}
-          </span>
-          <ChevronDown className="w-4 h-4 text-foreground" />
-        </div>
+        <Calendar className="w-4 h-4 text-foreground" />
+        <span className="text-foreground font-medium text-sm">
+          {formatDisplayValue()}
+        </span>
+        <ChevronDown className="w-4 h-4 text-foreground" />
       </div>
 
       {/* Dropdown */}
@@ -227,11 +225,10 @@ export const DateRangePicker = ({ value, onChange, className = "" }: DateRangePi
                     <button
                       key={option.value}
                       onClick={() => handleQuickSelect(option)}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                        selectedQuickOption === option.value && !isCustomRange
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${selectedQuickOption === option.value && !isCustomRange
                           ? "bg-primary text-primary-foreground"
                           : "text-foreground hover:bg-accent hover:text-accent-foreground"
-                      }`}
+                        }`}
                     >
                       {option.label}
                     </button>

@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { 
-  ArrowLeft, 
-  Camera, 
-  Heart, 
-  Activity, 
-  Bed, 
-  Clock, 
-  User, 
+import {
+  ArrowLeft,
+  Camera,
+  Heart,
+  Activity,
+  Bed,
+  Clock,
+  User,
   AlertTriangle,
   Shield,
   Brain,
@@ -36,9 +36,9 @@ const PatientDetail = () => {
   const [showVitalsDetail, setShowVitalsDetail] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dateFilter, setDateFilter] = useState("today");
-  const [videoSnippetOverlay, setVideoSnippetOverlay] = useState<{isOpen: boolean, event?: any}>({isOpen: false});
-  const [alertDetailModal, setAlertDetailModal] = useState<{isOpen: boolean, alert?: any}>({isOpen: false});
-  const [noteDetailModal, setNoteDetailModal] = useState<{isOpen: boolean, note?: any}>({isOpen: false});
+  const [videoSnippetOverlay, setVideoSnippetOverlay] = useState<{ isOpen: boolean, event?: any }>({ isOpen: false });
+  const [alertDetailModal, setAlertDetailModal] = useState<{ isOpen: boolean, alert?: any }>({ isOpen: false });
+  const [noteDetailModal, setNoteDetailModal] = useState<{ isOpen: boolean, note?: any }>({ isOpen: false });
 
   // Convert bed-01 back to BED 01 format
   const displayBedNumber = bedNumber?.replace('-', ' ').toUpperCase() || "BED 01";
@@ -127,10 +127,10 @@ const PatientDetail = () => {
     if (selectedDate.toDateString() === today.toDateString()) return "Today";
     if (selectedDate.toDateString() === yesterday.toDateString()) return "Yesterday";
     if (selectedDate.toDateString() === tomorrow.toDateString()) return "Tomorrow";
-    return selectedDate.toLocaleDateString('en-GB', { 
-      day: '2-digit', 
-      month: 'short', 
-      year: 'numeric' 
+    return selectedDate.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
     });
   };
 
@@ -216,58 +216,58 @@ const PatientDetail = () => {
               )}
             </div>
             <p className="text-muted-foreground">
-              Last updated: {new Date().toLocaleDateString('en-GB', { 
-                day: '2-digit', 
-                month: 'short', 
-                year: 'numeric' 
+              Last updated: {new Date().toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
               })} {new Date().toLocaleTimeString()} UTC
             </p>
           </div>
         </div>
-        
+
         {/* Date Filter */}
         <div className="flex flex-col items-end space-y-2">
           {patientData.admissionDate && (
             <p className="text-sm text-muted-foreground">
-              Admitted on: {new Date(patientData.admissionDate).toLocaleDateString('en-GB', { 
-                day: '2-digit', 
-                month: 'short', 
-                year: 'numeric' 
+              Admitted on: {new Date(patientData.admissionDate).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
               })} {new Date(patientData.admissionDate).toLocaleTimeString()} UTC
             </p>
           )}
           <div className="flex items-center space-x-2">
-          <Button 
-            variant="outline" 
-            size="icon"
-            onClick={() => handleDateChange('prev')}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </Button>
-          
-          <div className="flex items-center space-x-2 min-w-[140px] justify-center">
-            <Calendar className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium">{getDateLabel()}</span>
-          </div>
-          
-          <Button 
-            variant="outline" 
-            size="icon"
-            onClick={() => handleDateChange('next')}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </Button>
-          
-          {dateFilter !== 'today' && (
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={() => handleDateChange('today')}
-              className="text-xs"
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleDateChange('prev')}
             >
-              Today
+              <ChevronLeft className="w-4 h-4" />
             </Button>
-          )}
+
+            <div className="flex items-center space-x-2 min-w-[140px] justify-center">
+              <Calendar className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium">{getDateLabel()}</span>
+            </div>
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleDateChange('next')}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+
+            {dateFilter !== 'today' && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleDateChange('today')}
+                className="text-xs"
+              >
+                Today
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -298,13 +298,13 @@ const PatientDetail = () => {
               <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center relative overflow-hidden">
                 <Camera className="w-12 h-12 text-muted-foreground" />
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent" />
-                
+
                 {/* Live indicator */}
                 <div className="absolute top-4 left-4 flex items-center space-x-2 bg-medical-critical/90 text-white px-3 py-1 rounded-full">
                   <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                   <span className="text-sm font-medium">LIVE</span>
                 </div>
-                
+
                 {/* Timestamp */}
                 <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm">
                   {new Date().toLocaleTimeString()}
@@ -336,14 +336,14 @@ const PatientDetail = () => {
                   <div className="h-12">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trendData.slice(-8)}>
-                        <Line 
-                          type="monotone" 
-                          dataKey="heartRate" 
-                          stroke="hsl(var(--medical-critical))" 
+                        <Line
+                          type="monotone"
+                          dataKey="heartRate"
+                          stroke="hsl(var(--medical-critical))"
                           strokeWidth={2}
                           dot={false}
                         />
-                        <Tooltip 
+                        <Tooltip
                           content={({ active, payload, label }) => {
                             if (active && payload && payload.length) {
                               return (
@@ -372,14 +372,14 @@ const PatientDetail = () => {
                   <div className="h-12">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trendData.slice(-8)}>
-                        <Line 
-                          type="monotone" 
-                          dataKey="respiratoryRate" 
-                          stroke="hsl(var(--medical-caution))" 
+                        <Line
+                          type="monotone"
+                          dataKey="respiratoryRate"
+                          stroke="hsl(var(--medical-caution))"
                           strokeWidth={2}
                           dot={false}
                         />
-                        <Tooltip 
+                        <Tooltip
                           content={({ active, payload, label }) => {
                             if (active && payload && payload.length) {
                               return (
@@ -408,14 +408,14 @@ const PatientDetail = () => {
                   <div className="h-12">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trendData.slice(-8)}>
-                        <Line 
-                          type="monotone" 
-                          dataKey="spO2" 
-                          stroke="hsl(var(--primary))" 
+                        <Line
+                          type="monotone"
+                          dataKey="spO2"
+                          stroke="hsl(var(--primary))"
                           strokeWidth={2}
                           dot={false}
                         />
-                        <Tooltip 
+                        <Tooltip
                           content={({ active, payload, label }) => {
                             if (active && payload && payload.length) {
                               return (
@@ -448,19 +448,18 @@ const PatientDetail = () => {
             </div>
             <div className="p-6 space-y-4">
               {patientData.currentAlerts.map((alert, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="p-4 bg-background/50 rounded-lg border border-border/50 cursor-pointer hover:bg-background/70 transition-colors"
                   onClick={() => openAlertDetail(alert)}
                 >
                   <div className="flex items-start space-x-3">
-                    <alert.icon className={`w-5 h-5 mt-0.5 ${
-                      alert.severity === "critical" ? "text-medical-critical" : "text-medical-caution"
-                    }`} />
+                    <alert.icon className={`w-5 h-5 mt-0.5 ${alert.severity === "critical" ? "text-medical-critical" : "text-medical-caution"
+                      }`} />
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-medium">{alert.type}</span>
-                        <Badge 
+                        <Badge
                           variant={alert.severity === "critical" ? "destructive" : "secondary"}
                           className={alert.severity === "critical" ? "btn-medical-critical" : "btn-medical-caution"}
                         >
@@ -518,7 +517,7 @@ const PatientDetail = () => {
             <div className="h-80 overflow-y-auto custom-scrollbar">
               <div className="space-y-3">
                 {patientData.events.map((event) => (
-                  <div 
+                  <div
                     key={event.id}
                     className="p-3 bg-background/50 rounded-lg border border-border/50 cursor-pointer transition-all hover:bg-background/70 relative"
                     onMouseEnter={() => event.hasVideo && setHoveredEvent(event.id)}
@@ -537,19 +536,6 @@ const PatientDetail = () => {
                       </div>
                       <span className="text-xs text-muted-foreground">{event.time}</span>
                     </div>
-                    
-                    {/* Video Preview on Hover */}
-                    {hoveredEvent === event.id && event.hasVideo && (
-                      <div className="absolute top-0 right-0 transform translate-x-full ml-2 z-10">
-                        <div className="w-48 h-32 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center shadow-lg border border-border">
-                          <Camera className="w-6 h-6 text-muted-foreground" />
-                          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent rounded-lg" />
-                          <div className="absolute bottom-1 left-1 text-xs text-white bg-black/70 px-1 rounded">
-                            {event.time}
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
@@ -584,8 +570,8 @@ const PatientDetail = () => {
             <div className="h-48 overflow-y-auto custom-scrollbar">
               <div className="space-y-3">
                 {patientData.notes.map((note) => (
-                  <div 
-                    key={note.id} 
+                  <div
+                    key={note.id}
                     className="p-3 bg-background/50 rounded-lg border border-border/50 cursor-pointer hover:bg-background/70 transition-colors"
                     onClick={() => openNoteDetail(note)}
                   >
@@ -601,28 +587,28 @@ const PatientDetail = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Vitals Detail Overlay */}
-      <VitalsDetailModal 
-        isOpen={showVitalsDetail} 
-        onClose={() => setShowVitalsDetail(false)} 
+      <VitalsDetailModal
+        isOpen={showVitalsDetail}
+        onClose={() => setShowVitalsDetail(false)}
       />
-      
-      <VideoSnippetModal 
+
+      <VideoSnippetModal
         isOpen={videoSnippetOverlay.isOpen}
-        onClose={() => setVideoSnippetOverlay({isOpen: false})}
+        onClose={() => setVideoSnippetOverlay({ isOpen: false })}
         event={videoSnippetOverlay.event}
       />
-      
-      <AlertDetailModal 
+
+      <AlertDetailModal
         isOpen={alertDetailModal.isOpen}
-        onClose={() => setAlertDetailModal({isOpen: false})}
+        onClose={() => setAlertDetailModal({ isOpen: false })}
         alert={alertDetailModal.alert}
       />
-      
-      <NoteDetailModal 
+
+      <NoteDetailModal
         isOpen={noteDetailModal.isOpen}
-        onClose={() => setNoteDetailModal({isOpen: false})}
+        onClose={() => setNoteDetailModal({ isOpen: false })}
         note={noteDetailModal.note}
       />
     </div>

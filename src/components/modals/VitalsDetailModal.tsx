@@ -1,15 +1,31 @@
+import { Activity, Gauge, Heart, Thermometer, TrendingUp, X } from "lucide-react";
 import { useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Heart, Activity, Thermometer, Gauge, TrendingUp, X } from "lucide-react";
-import { Button } from "../SharedComponents/button";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { DateRangePicker } from "../SharedComponents/datePicker";
 
 interface VitalsDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload?.length) {
+    return (
+      <div className="bg-card border border-border rounded-lg p-3 shadow-lg">
+        <p className="text-sm font-medium mb-2">{`Time: ${label}`}</p>
+        {payload.map((entry: any, index: number) => (
+          <p key={`${entry.dataKey}-${index}`} className="text-sm" style={{ color: entry.color }}>
+            {`${entry.dataKey}: ${Number(entry.value).toFixed(1)}`}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
 export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) => {
-  const [timeFilter, setTimeFilter] = useState("24h");
+  const [selectedDateRange, setSelectedDateRange] = useState("Sep 23, 2025 14:17 - Sep 24, 2025 14:17");
 
   const generateVitalsData = () => {
     const data = [];
@@ -33,29 +49,16 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
   const vitalsData = generateVitalsData();
   const latestVitals = vitalsData[vitalsData.length - 1];
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-card border border-border rounded-lg p-3 shadow-lg">
-          <p className="text-sm font-medium mb-2">{`Time: ${label}`}</p>
-          {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {`${entry.dataKey}: ${Number(entry.value).toFixed(1)}`}
-            </p>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center p-4">
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative z-50 w-full max-w-7xl glass-card max-h-[85vh] overflow-y-auto custom-scrollbar rounded-lg">
-        <div className="p-6 border-b border-border">
+      <button
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative z-50 w-full max-w-7xl bg-background max-h-[85vh] overflow-y-auto custom-scrollbar rounded-lg">
+        <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <TrendingUp className="w-5 h-5 text-primary" />
@@ -63,39 +66,37 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-sm text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString('en-GB', { 
-                  day: '2-digit', 
-                  month: 'short', 
-                  year: 'numeric' 
+                Last updated: {new Date().toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric'
                 })} {new Date().toLocaleTimeString()} UTC
               </div>
-              <Button variant="ghost" size="icon" onClick={onClose}>
-                <X className="w-4 h-4" />
-              </Button>
+              <button
+                type="button"
+                className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                onClick={onClose}
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </button>
             </div>
           </div>
-          <div className="flex space-x-2 mt-4">
-            {["3h", "6h", "12h", "24h"].map((filter) => (
-              <Button
-                key={filter}
-                variant={timeFilter === filter ? "default" : "outline"}
-                size="sm"
-                onClick={() => setTimeFilter(filter)}
-                className={timeFilter === filter ? "btn-medical-primary" : ""}
-              >
-                {filter}
-              </Button>
-            ))}
+          <div className="mt-4">
+            <DateRangePicker
+              value={selectedDateRange}
+              onChange={setSelectedDateRange}
+            />
           </div>
         </div>
 
         <div className="p-6 space-y-6">
           {/* Current Readings */}
-          <div className="glass-card rounded-lg">
-            <div className="p-6 border-b border-border">
-              <h3 className="text-lg font-semibold">Current Readings</h3>
+          <div className="rounded-lg border bg-card text-card-foreground shadow-sm glass-card">
+            <div className="flex flex-col space-y-1.5 p-6">
+              <h3 className="text-2xl font-semibold leading-none tracking-tight">Current Readings</h3>
             </div>
-            <div className="p-6">
+            <div className="p-6 pt-0">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center p-4 bg-background/50 rounded-lg">
                   <Heart className="w-6 h-6 text-medical-critical mx-auto mb-2" />
@@ -130,12 +131,12 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
           </div>
 
           {/* Trend Graphs */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="glass-card rounded-lg">
-              <div className="p-6 border-b border-border">
-                <h3 className="text-lg font-semibold">Heart Rate Trend</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm glass-card">
+              <div className="flex flex-col space-y-1.5 p-6">
+                <h3 className="text-2xl font-semibold leading-none tracking-tight">Heart Rate Trend</h3>
               </div>
-              <div className="p-6">
+              <div className="p-6 pt-0">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={vitalsData}>
@@ -143,10 +144,10 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
                       <XAxis dataKey="timestamp" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="heartRate" 
-                        stroke="hsl(var(--medical-critical))" 
+                      <Line
+                        type="monotone"
+                        dataKey="heartRate"
+                        stroke="hsl(var(--medical-critical))"
                         strokeWidth={2}
                         dot={{ fill: "hsl(var(--medical-critical))", strokeWidth: 2, r: 3 }}
                       />
@@ -156,11 +157,11 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
               </div>
             </div>
 
-            <div className="glass-card rounded-lg">
-              <div className="p-6 border-b border-border">
-                <h3 className="text-lg font-semibold">SpO2 Trend</h3>
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm glass-card">
+              <div className="flex flex-col space-y-1.5 p-6">
+                <h3 className="text-2xl font-semibold leading-none tracking-tight">SpO2 Trend</h3>
               </div>
-              <div className="p-6">
+              <div className="p-6 pt-0">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={vitalsData}>
@@ -168,10 +169,10 @@ export const VitalsDetailModal = ({ isOpen, onClose }: VitalsDetailModalProps) =
                       <XAxis dataKey="timestamp" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="spO2" 
-                        stroke="hsl(var(--primary))" 
+                      <Line
+                        type="monotone"
+                        dataKey="spO2"
+                        stroke="hsl(var(--primary))"
                         strokeWidth={2}
                         dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 3 }}
                       />
